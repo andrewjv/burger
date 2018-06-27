@@ -17,9 +17,10 @@ router.get('/burgers', function(req, res){
 	});
 });
 
-router.post('/burgers/create', function(req, res){
-	burger.create(['burger_name'], [req.body.b_name], function(data){
-		res.redirect('/burgers')
+router.post('/api/burgers', function(req, res){
+	burger.create(['burger_name'], [req.body.burger_name], function(result){
+		// res.redirect('/burgers')
+		res.json({id: result.insertId, burger_name: req.body.burger_name })
 	});
 });
 
@@ -29,7 +30,8 @@ router.put('/burgers/update/:id', function(req, res){
 	console.log('condition ', condition);
 
 	burger.update({'devoured': req.body.devoured}, condition, function(data){
-		res.redirect('/burgers');
+		res.send(data);
+		// res.redirect('/burgers');
 	});
 });
 
